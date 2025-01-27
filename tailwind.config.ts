@@ -14,5 +14,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@vidstack/react/tailwind.cjs'), require('tailwind-scrollbar')],
 } satisfies Config;
