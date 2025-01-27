@@ -125,7 +125,7 @@ export interface SubmenuButtonProps {
   label: string;
   hint: string;
   disabled?: boolean;
-  icon: ReactElement;
+  icon: any;
 }
 
 function SubmenuButton({ label, hint, icon: Icon, disabled }: SubmenuButtonProps) {
