@@ -14,7 +14,7 @@ const Body = ({id}:any) => {
       setTitle(m3u8?.title)
   const originalUrl = m3u8?.requestUrl;
   if (!originalUrl) {
-    console.error("Failed to fetch the original m3u8 URL");
+    console.log("Failed to fetch the original m3u8 URL");
     setLoading(false);
     return;
   }
