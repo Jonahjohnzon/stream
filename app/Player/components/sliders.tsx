@@ -4,7 +4,7 @@ export function Volume() {
   return (
     <VolumeSlider.Root className="volume-slider group relative mx-[7.5px] inline-flex h-10 w-full max-w-[80px] cursor-pointer touch-none select-none items-center outline-none aria-hidden:hidden">
       <VolumeSlider.Track className="relative ring-media-focus z-0 h-[5px] w-full rounded-sm bg-white/30 group-data-[focus]:ring-[3px]">
-        <VolumeSlider.TrackFill className="bg-media-brand absolute h-full w-[var(--slider-fill)] rounded-sm will-change-[width]" />
+        <VolumeSlider.TrackFill className="bg-media-brand bg-slate-900 absolute h-full w-[var(--slider-fill)] rounded-sm will-change-[width]" />
       </VolumeSlider.Track>
 
       <VolumeSlider.Preview
@@ -46,17 +46,6 @@ export function Time({ thumbnails }: TimeSliderProps) {
       <TimeSlider.Thumb className="absolute left-[var(--slider-fill)] top-1/2 z-20 h-[15px] w-[15px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#cacaca] bg-white opacity-0 ring-white/40 transition-opacity group-data-[active]:opacity-100 group-data-[dragging]:ring-4 will-change-[left]" />
 
       <TimeSlider.Preview className="flex flex-col items-center opacity-0 transition-opacity duration-200 data-[visible]:opacity-100 pointer-events-none">
-        {thumbnails ? (
-          <TimeSlider.Thumbnail.Root
-            src={thumbnails}
-            className="block h-[var(--thumbnail-height)] max-h-[160px] min-h-[80px] w-[var(--thumbnail-width)] min-w-[120px] max-w-[180px] overflow-hidden border border-white bg-black"
-          >
-            <TimeSlider.Thumbnail.Img />
-          </TimeSlider.Thumbnail.Root>
-        ) : null}
-
-        <TimeSlider.ChapterTitle className="mt-2 text-sm" />
-
         <TimeSlider.Value className="text-[13px]" />
       </TimeSlider.Preview>
     </TimeSlider.Root>

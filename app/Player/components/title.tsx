@@ -1,10 +1,10 @@
-import { ChapterTitle } from '@vidstack/react';
+import { Title } from '@vidstack/react';
 
-export function Title() {
+export function Titles() {
   return (
     <span className="inline-block flex-1 overflow-hidden text-ellipsis whitespace-nowrap px-2 text-sm font-medium text-white/70">
       <span className="mr-1">|</span>
-      <ChapterTitle />
+      <Title />
     </span>
   );
 }

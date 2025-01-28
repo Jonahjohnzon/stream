@@ -1,27 +1,14 @@
 import { Schema, model, models } from "mongoose";
 
 const Movie = new Schema({
-    id:{
-        type:String
-    },
-    media_type:{
-        type:String
-    },
-    name:{
-        type:String
-    },
-    title:{
-        type:String
-    },
-    episode:{
-        type:String
-    },
-    season:{
-        type:String
-    },
-    m3u8:{
-        type:String
-    }
+    tmdb_id: { type: String, required: true, unique: true },
+    type: { type: String, required: true }, // 'movie' or 'tv'
+    season: { type: String, required: false }, // for TV shows
+    episode: { type: String, required: false }, // for TV shows
+    title: { type: String, required: true },
+    requestUrl: { type: String, required: true },
+    headers: { type: Object, required: true }, // Store headers as an object
+    createdAt: { type: Date, default: Date.now },
 },{timestamps:true})
 
 

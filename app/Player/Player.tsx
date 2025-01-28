@@ -16,21 +16,15 @@ import {
   } from '@vidstack/react';
 import { textTracks } from './tracks';
 import { VideoLayout } from './components/layouts/video-layout';
-import { ResLayout } from './components/layouts/resControl';
 
 interface prop {
-    src:string
+    src:string,
+    title?:any
 }
 
-const Player = ({src}:prop) => {
+const Player = ({src, title}:prop) => {
     let player = useRef<MediaPlayerInstance>(null);
-    useEffect(() => {
-      // Subscribe to state updates.
-      return player.current!.subscribe(({ paused, viewType }) => {
-        // console.log('is paused?', '->', state.paused);
-        // console.log('is audio view?', '->', state.viewType === 'audio');
-      });
-    }, []);
+
   
     function onProviderChange(
       provider: MediaProviderAdapter | null,
@@ -50,16 +44,16 @@ const Player = ({src}:prop) => {
   return (
     <div  className='  w-screen h-screen overflow-hidden flex items-center justify-center   scrollbar-none'>
         <MediaPlayer 
-        title="Sprite Fight"
+        title={title}
         className=' scrollbar-none  w-screen h-screen bg-black'
          src={src}
          crossOrigin=""
          playsInline
          onProviderChange={onProviderChange}
          onCanPlay={onCanPlay}
+         storage={src}
          ref={player}
        >
-        <ResLayout player={player}/>
         <MediaProvider className='scrollbar-none'>
         {textTracks.map((track) => (
           <Track  {...track} key={track.src} />

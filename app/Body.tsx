@@ -18,7 +18,9 @@ const Body = ({children}:any) => {
     suppressHydrationWarning
 
   >
+    <div className=" select-none" >
     {children}
+    </div>
   </body>
   )
 }

@@ -1,19 +1,20 @@
 import captionStyles from './captions.module.css';
 import styles from './video-layout.module.css';
-
+import { PlayButton, useMediaState } from '@vidstack/react';
+import { PauseIcon, PlayIcon } from '@vidstack/react/icons';
 import { Captions, Controls, Gesture } from '@vidstack/react';
-
 import * as Buttons from '../buttons';
 import * as Menus from '../menus';
 import * as Sliders from '../sliders';
 import { TimeGroup } from '../time-group';
-import { Title } from '../title';
+import { Titles } from '../title';
 
 export interface VideoLayoutProps {
   thumbnails?: string;
 }
 
 export function VideoLayout({ thumbnails }: VideoLayoutProps) {
+  const isPaused = useMediaState('paused')
   return (
     <>
       <Gestures />
@@ -23,7 +24,16 @@ export function VideoLayout({ thumbnails }: VideoLayoutProps) {
       <Controls.Root
         className={`${styles.controls} media-controls:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity`}
       >
-        <div className="flex-1" />
+        <Controls.Group>
+        <Menus.VideoQualitySubmenu />
+        </Controls.Group>
+        <div className="flex-1 flex justify-center items-center" >
+        <Controls.Group>
+        <PlayButton className="vds-button cursor-pointer">
+          {isPaused &&<PlayIcon className="play-icon hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white w-40 40-20 " />}
+        </PlayButton>
+        </Controls.Group>
+        </div>
         <Controls.Group className="flex w-full items-center px-2">
           <Sliders.Time thumbnails={thumbnails} />
         </Controls.Group>
@@ -32,7 +42,7 @@ export function VideoLayout({ thumbnails }: VideoLayoutProps) {
           <Buttons.Mute tooltipPlacement="top" />
           <Sliders.Volume />
           <TimeGroup />
-          <Title />
+          <Titles />
           <div className="flex-1" />
           <Buttons.Caption tooltipPlacement="top" />
           <Menus.Settings placement="top end" tooltipPlacement="top" />

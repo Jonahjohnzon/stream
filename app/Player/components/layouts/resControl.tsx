@@ -13,7 +13,7 @@ export function ResLayout({player}:any) {
   return (
     <>
 
-        <div className="flex-1" />
+        <div className="flex-1 media-preview:opacity-0  media-captions:opacity-100" />
         <Controls.Group className="mt-1.5   flex w-full items-center px-5 pt-2">
           <div className="flex-1" />
           <Menus.VideoQualitySubmenu />

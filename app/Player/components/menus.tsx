@@ -65,8 +65,8 @@ export function VideoQualitySubmenu() {
         ? `${currentQualityHeight}p`
         : `Auto${currentQualityHeight ? ` (${currentQualityHeight}p)` : ''}`;
   return (
-    <Menu.Root className="parent">
-      <Menu.Button disabled={options.disabled}>
+    <Menu.Root className="parent w-full relative">
+      <Menu.Button disabled={options.disabled} className='absolute top-5 right-16 z-50'>
         <SettingsMenuIcon className="h-8 w-8 transform transition-transform duration-200 ease-out group-data-[open]:rotate-90"/>
       </Menu.Button>
       <Menu.Content className={resClass} placement={"bottom start"}>
