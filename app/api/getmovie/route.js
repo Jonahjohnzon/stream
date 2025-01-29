@@ -71,23 +71,39 @@ export const GET = async (req) => {
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
     await page.goto(pageUrl, { waitUntil: "domcontentloaded" });
-
     const m3u8Url = await new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        resolve(null); // Resolve with null if no .m3u8 URL is found within the timeout
+      }, 10000); // 10 seconds timeout
+    
       page.on("response", async (response) => {
         try {
           const requestUrl = response.url();
           if (requestUrl.includes(".m3u8")) {
+            clearTimeout(timeout); // Clear timeout when URL is found
             const headers = response.request().headers(); // Required headers
             resolve({ requestUrl, headers });
           }
         } catch (err) {
+          clearTimeout(timeout);
           reject(err);
         }
       });
-
-      page.on("error", (err) => reject(err));
+    
+      page.on("error", (err) => {
+        clearTimeout(timeout);
+        reject(err);
+      });
     });
+    
+    if (!m3u8Url) {
+      return NextResponse.json(
+        { success: false, error: "M3U8 URL not found", title },
+        { status: 404 }
+      );
+    }
 
+    
     if (m3u8Url) {
       const { requestUrl, headers } = m3u8Url;
 

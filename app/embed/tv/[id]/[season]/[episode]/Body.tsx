@@ -6,6 +6,8 @@ const Body = ({id,season, episode}:any) => {
   const [src, setSrc] = useState("")
   const [loading, setLoading] = useState(true)
   const [title, setTitle] = useState('')
+  const [error, setError] = useState(false)
+  
     const PROXY =async()=>{
 
       try{
@@ -17,19 +19,21 @@ const Body = ({id,season, episode}:any) => {
   if (!originalUrl) {
     console.log("Failed to fetch the original m3u8 URL");
     setLoading(false);
+    setError(true)
     return;
   }
 
   // Encode and create the proxy URL
-  const proxyBaseUrl = "http://www.whateverorigin.org/get?url=";
-  const encodedUrl = encodeURIComponent(originalUrl)
-  const proxyUrl = `${proxyBaseUrl}${encodedUrl}`;
+  // const proxyBaseUrl = "http://www.whateverorigin.org/get?url=";
+  // const encodedUrl = encodeURIComponent(originalUrl)
+  // const proxyUrl = `${proxyBaseUrl}${encodedUrl}`;
   setSrc(originalUrl)
   setLoading(false)
 }
 catch(err)
 {
   setLoading(false)
+  setError(true)
   console.log(err)
 }
     }
@@ -41,6 +45,13 @@ catch(err)
     return <div className=' fixed z-50 w-screen h-screen bg-black flex justify-center items-center'>
           <div className=' border-2 w-9 h-9 rounded-full border-white border-t-0 animate-spin'></div>
     </div>
+
+if(error)
+  {
+    return <div className=' fixed z-50 w-screen h-screen bg-black flex justify-center items-center'>
+    <p className=' font-bold text-lg text-white'>Media Not Found</p>
+    </div>
+  }
 
   return (
     <>

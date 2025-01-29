@@ -6,6 +6,7 @@ const Body = ({id}:any) => {
   const [src, setSrc] = useState("")
   const [loading, setLoading] = useState(true)
   const [title, setTitle] = useState("")
+  const [error, setError] = useState(false)
     const PROXY =async()=>{
       try{
       setLoading(true)
@@ -16,6 +17,7 @@ const Body = ({id}:any) => {
   if (!originalUrl) {
     console.log("Failed to fetch the original m3u8 URL");
     setLoading(false);
+    setError(true)
     return;
   }
 
@@ -29,6 +31,7 @@ const Body = ({id}:any) => {
 catch(err)
 {
   setLoading(false)
+  setError(true)
   console.log(err)
 }
     }
@@ -41,6 +44,12 @@ catch(err)
           <div className=' border-2 w-9 h-9 rounded-full border-white border-t-0 animate-spin'></div>
     </div>
 
+  if(error)
+  {
+    return <div className=' fixed z-50 w-screen h-screen bg-black flex justify-center items-center'>
+    <p className=' font-bold text-lg text-white'>Media Not Found</p>
+    </div>
+  }
   return (
     <>
         <Player src={src} title={title}/>

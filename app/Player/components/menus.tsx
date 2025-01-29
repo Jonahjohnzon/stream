@@ -2,6 +2,7 @@ import type { ReactElement } from 'react';
 
 import {
   Menu,
+  Title,
   Tooltip,
   useCaptionOptions,
   useVideoQualityOptions,
@@ -65,7 +66,7 @@ export function VideoQualitySubmenu() {
         ? `${currentQualityHeight}p`
         : `Auto${currentQualityHeight ? ` (${currentQualityHeight}p)` : ''}`;
   return (
-    <Menu.Root className="parent w-full relative">
+    <Menu.Root className="parent relative">
       <Menu.Button disabled={options.disabled} className='absolute top-5 right-16 z-50'>
         <SettingsMenuIcon className="h-8 w-8 transform transition-transform duration-200 ease-out group-data-[open]:rotate-90"/>
       </Menu.Button>
