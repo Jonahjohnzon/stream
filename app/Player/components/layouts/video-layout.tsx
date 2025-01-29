@@ -35,7 +35,7 @@ export function VideoLayout({ thumbnails }: VideoLayoutProps) {
           </div>} */}
         <Controls.Group>
         <PlayButton className="vds-button cursor-pointer">
-          {isPaused &&<PlayIcon className="play-icon hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white w-40 40-20 " />}
+          {isPaused &&<PlayIcon className="play-icon  hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white outline-none w-24 md:w-40  " />}
         </PlayButton>
         </Controls.Group>
         <BufferingIndicator/>
