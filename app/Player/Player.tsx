@@ -19,7 +19,7 @@ const Player = ({src, title}:prop) => {
     let player = useRef<MediaPlayerInstance>(null);
 
   return (
-    <div  className='  w-screen h-screen overflow-hidden flex items-center justify-center   scrollbar-none'>
+    <div  className=' text-white  w-screen h-screen overflow-hidden flex items-center justify-center   scrollbar-none'>
         <MediaPlayer 
         title={title}
         aspectRatio="16/9"

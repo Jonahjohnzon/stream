@@ -18,6 +18,7 @@ const Body = ({children}:any) => {
     suppressHydrationWarning
 
   >
+        <link rel="icon" href="/logologo.png" sizes="any" />
     <div className=" select-none" >
     {children}
     </div>
