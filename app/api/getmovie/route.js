@@ -98,7 +98,7 @@ export const GET = async (req) => {
     return NextResponse.json(m3u8Url, { status: 200 });
 
   } catch (err) {
-    console.error("Error:", err);
+    console.log(err)
     return NextResponse.json(
       { success: false, error: err.message },
       { status: 500 }
