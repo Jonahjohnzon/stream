@@ -7,12 +7,25 @@ const Body = ({id}:any) => {
   const [loading, setLoading] = useState(true)
   const [title, setTitle] = useState("")
   const [error, setError] = useState(false)
-    const PROXY =async()=>{
+
+  const Tmdb =async({tmdb_id}:any)=>{
+    const url = `https://api.themoviedb.org/3/movie/${tmdb_id}`;
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `${process.env.NEXT_PUBLIC_BEARER}`,
+        "Content-Type": "application/json",
+      },
+    });
+    const tmdbData = await response.json()
+    const title = tmdbData.title || tmdbData.name || "Unknown Title";
+    return title
+  }
+  const PROXY =async()=>{
       try{
       setLoading(true)
       const info = await fetch(`/api/getmovie?type=movie&id=${id}&server=1`);
       const m3u8 = await info.json();
-      setTitle(m3u8?.title)
+      setTitle(m3u8.title)
   const originalUrl = m3u8?.requestUrl;
   if (!originalUrl) {
     console.log("Failed to fetch the original m3u8 URL");
