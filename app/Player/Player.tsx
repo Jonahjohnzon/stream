@@ -22,6 +22,7 @@ const Player = ({src, title}:prop) => {
     <div  className=' text-white  w-screen h-screen overflow-hidden flex items-center justify-center   scrollbar-none'>
         <MediaPlayer 
         title={title}
+        key={src}
         aspectRatio="16/9"
         className=' scrollbar-none  w-screen h-screen bg-black'
          src={src}

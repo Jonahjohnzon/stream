@@ -12,7 +12,7 @@ const Body = ({id,season, episode}:any) => {
 
       try{
       setLoading(true)
-      const info = await fetch(`/api/getmovie?type=tv&id=${id}&season=${season}&episode=${episode}`);
+      const info = await fetch(`/api/getmovie?type=tv&id=${id}&season=${season}&episode=${episode}&server=1`);
       const m3u8 = await info.json();
       setTitle(m3u8?.title)
   const originalUrl = m3u8?.requestUrl;

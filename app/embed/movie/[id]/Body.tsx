@@ -10,7 +10,7 @@ const Body = ({id}:any) => {
     const PROXY =async()=>{
       try{
       setLoading(true)
-      const info = await fetch(`/api/getmovie?type=movie&id=${id}`);
+      const info = await fetch(`/api/getmovie?type=movie&id=${id}&server=1`);
       const m3u8 = await info.json();
       setTitle(m3u8?.title)
   const originalUrl = m3u8?.requestUrl;
