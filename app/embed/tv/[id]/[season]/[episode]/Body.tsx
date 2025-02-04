@@ -1,13 +1,14 @@
 "use client"
 import Player from '@/app/Player/Player'
 import React, { useEffect, useState } from 'react'
+import { type SubtitleData, searchSubtitles, parseToVTT } from "wyzie-lib";
 
 const Body = ({id,season, episode}:any) => {
   const [src, setSrc] = useState("")
   const [loading, setLoading] = useState(true)
   const [title, setTitle] = useState('')
   const [error, setError] = useState(false)
-
+  const [Srt, setSrt] = useState([])
 
   
     const PROXY =async()=>{
@@ -16,6 +17,9 @@ const Body = ({id,season, episode}:any) => {
       setLoading(true)
       const info = await fetch(`/api/getmovie?type=tv&id=${id}&season=${season}&episode=${episode}&server=1`);
       const m3u8 = await info.json();
+      // const data = await fetch(`https://sub.wyzie.ru/search?id=${id}&format=srt`)
+      // const vttContent =  await data.json();
+      // // setSrt(vttContent)
       setTitle(m3u8.title)
   const originalUrl = m3u8?.requestUrl;
   if (!originalUrl) {
@@ -57,7 +61,7 @@ if(error)
 
   return (
     <>
-        <Player src={src} title={title}/>
+        <Player src={src} title={title} Srt={Srt}/>
     </>
   )
 }
