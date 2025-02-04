@@ -38,15 +38,15 @@ export const GET = async (req) => {
       return NextResponse.json(cache.get(cacheKey), { status: 200 });
     }
 
-      const urllink = `https://api.themoviedb.org/3/${type}/${tmdb_id}`;
-      const response = await fetch(urllink, {
-        headers: {
-          Authorization: `${process.env.DB_BEARER}`,
-          "Content-Type": "application/json",
-        },
-      });
-      const tmdbData = await response.json()
-      const title = tmdbData.title || tmdbData.name || "Unknown Title";
+    const urllink = `https://api.themoviedb.org/3/${type}/${tmdb_id}`;
+    const response = await fetch(urllink, {
+      headers: {
+        Authorization: `${process.env.DB_BEARER}`,
+        "Content-Type": "application/json",
+      },
+    });
+    const tmdbData = await response.json();
+    const title = tmdbData.title || tmdbData.name || "Unknown Title";
 
     // Construct the page URL
     const pageUrl = type == "movie"
@@ -63,25 +63,19 @@ export const GET = async (req) => {
 
     // Scrape M3U8 URL
     const m3u8Url = await new Promise((resolve, reject) => {
-      const timeout = setTimeout(() =>resolve(null), 20000);
-
       page.on("response", async (response) => {
         try {
-          console.log(response)
           const requestUrl = response.url();
           if (requestUrl.includes(".m3u8")) {
-            clearTimeout(timeout); 
-            const headers = response.request().headers(); 
+            const headers = response.request().headers();
             resolve({ requestUrl, headers, title });
           }
         } catch (err) {
-          clearTimeout(timeout);
           reject(err);
         }
       });
 
       page.on("error", (err) => {
-        clearTimeout(timeout);
         reject(err);
       });
     });
@@ -97,9 +91,8 @@ export const GET = async (req) => {
     cache.set(cacheKey, m3u8Url);
 
     return NextResponse.json(m3u8Url, { status: 200 });
-
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return NextResponse.json(
       { success: false, error: err.message },
       { status: 500 }
