@@ -67,6 +67,7 @@ export const GET = async (req) => {
 
       page.on("response", async (response) => {
         try {
+          console.log(response)
           const requestUrl = response.url();
           if (requestUrl.includes(".m3u8")) {
             clearTimeout(timeout); 
