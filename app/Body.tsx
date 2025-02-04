@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Dosis} from "next/font/google";
+import {Dosis} from "next/font/google";
 
 
 const dosis = Dosis({ subsets: ['latin'] })

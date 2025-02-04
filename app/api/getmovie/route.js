@@ -63,7 +63,7 @@ export const GET = async (req) => {
 
     // Scrape M3U8 URL
     const m3u8Url = await new Promise((resolve, reject) => {
-      const timeout = setTimeout(() =>resolve(null), 400000);
+      const timeout = setTimeout(() =>resolve(null), 20000);
 
       page.on("response", async (response) => {
         try {
