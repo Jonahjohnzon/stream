@@ -1,5 +1,4 @@
 "use server"
-import  saveM3U8File from './save'
 import {uploadToR2} from './r2'
 export async function getvidsrc({tmdb_id, season, episode,cacheKey}) {
   const DOMAIN = "https://embed.su";
@@ -40,7 +39,7 @@ export async function getvidsrc({tmdb_id, season, episode,cacheKey}) {
 
     const firstDecode = (await string_atob(mEncrypt)).split(".").map(item => item.split("").reverse().join(""));
     const secondDecode = JSON.parse(await string_atob(firstDecode.join("").split("").reverse().join("")));
-
+    const title = hashDecode.title || "Unknown Title"
     if (!secondDecode || secondDecode.length == 0) {
       return;
     }
@@ -90,8 +89,8 @@ export async function getvidsrc({tmdb_id, season, episode,cacheKey}) {
       .replace(/\.png/g, '.m3u8') // Replace all .png occurrences with .m3u8
       .replace(/\/api\/proxy\/viper/g, 'https:/'); // Replace proxy path with https://
       const fileName = `${cacheKey}.m3u8`
-      const data = await uploadToR2("vidstream", fileName, updatedM3U8);
-      console.log(data)
+       await uploadToR2("vidstream", fileName, updatedM3U8);
+       const link = `https://flingforum.site/${fileName}`
 
 
       // saveM3U8File(cacheKey,updatedM3U8)
@@ -101,7 +100,8 @@ export async function getvidsrc({tmdb_id, season, episode,cacheKey}) {
           "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
           "Accept": "*/*"
         },
-        sources: data.Location,
+        sources: link,
+        title:title
       };
 
       return results;

@@ -1,10 +1,33 @@
 "use server";
 import { NextResponse } from "next/server";
-import {getvidsrc} from './servers/embed'
-const cache = new Map(); // Simple in-memory cache
+import { getvidsrc } from "./servers/embed";
+import { unstable_cache } from "next/cache";
+
+// Cached function that never expires
+const fetchAndCacheVideo = unstable_cache(
+  async ({ tmdb_id, type, season, episode, server }) => {
+    let pageUrl;
+    const cacheKey = type === "movie"
+    ? `${type}-${tmdb_id}-${server}`
+    : `${type}-${tmdb_id}-${season}-${episode}-${server}`;
+    if (type === "movie") {
+      const vidsrcresponse = await getvidsrc({ tmdb_id, cacheKey });
+      pageUrl = vidsrcresponse;
+    } else {
+      const vidsrcresponse = await getvidsrc({ tmdb_id, season, episode, cacheKey });
+      pageUrl = vidsrcresponse;
+    }
+
+    if (!pageUrl) {
+      throw new Error("Movie not found");
+    }
+
+    return { pageUrl };
+  },
+  (params) => `${params.type}-${params.tmdb_id}-${params.season || "0"}-${params.episode || "0"}-${params.server}`
+);
 
 export const GET = async (req) => {
-  let browser;
   try {
     const url = new URL(req.url);
     const tmdb_id = url.searchParams.get("id");
@@ -27,52 +50,18 @@ export const GET = async (req) => {
       );
     }
 
-    // Generate a unique cache key based on request parameters
-    const cacheKey = type === "movie"
-      ? `${type}-${tmdb_id}-${server}`
-      : `${type}-${tmdb_id}-${season}-${episode}-${server}`;
+    const m3u8Url = await fetchAndCacheVideo({ tmdb_id, type, season, episode, server });
 
-    // Check cache before scraping
-    if (cache.has(cacheKey)) {
-      return NextResponse.json(cache.get(cacheKey), { status: 200 });
-    }
-
-    const title =  "Unknown Title";
-    
-    // Construct the page URL
-    let pageUrl ;
-    
-    if(type == "movie")
-     {
-      const vidsrcresponse = await getvidsrc({tmdb_id,cacheKey});
-      pageUrl = vidsrcresponse      
-     }
-     else{
-      const vidsrcresponse = await getvidsrc({tmdb_id, season, episode,cacheKey});
-      pageUrl = vidsrcresponse 
-     }
-
-    if (!pageUrl) {
-      return NextResponse.json(
-        { success: false, error: "Movie not found" },
-        { status: 400 }
-      );
-    }
-    const m3u8Url = {
-      title, pageUrl
-    }
-    // Save result in cache
-    cache.set(cacheKey, m3u8Url);
-
-    return NextResponse.json(m3u8Url, { status: 200, headers: { "Content-Type": "application/vnd.apple.mpegurl" }
+    return NextResponse.json(m3u8Url, { 
+      status: 200, 
+      headers: { "Content-Type": "application/vnd.apple.mpegurl" } 
     });
+
   } catch (err) {
     console.log(err);
     return NextResponse.json(
       { success: false, error: err.message },
       { status: 500 }
     );
-  } finally {
-    if (browser) await browser.close();
   }
 };
