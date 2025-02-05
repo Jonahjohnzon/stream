@@ -1,7 +1,8 @@
 "use client"
 import Player from '@/app/Player/Player'
 import React, { useEffect, useState } from 'react'
-import { type SubtitleData, searchSubtitles, parseToVTT } from "wyzie-lib";
+import { useSnapshot } from 'valtio'
+import { store } from '@/app/store'
 
 const Body = ({id,season, episode}:any) => {
   const [src, setSrc] = useState("")
@@ -12,29 +13,20 @@ const Body = ({id,season, episode}:any) => {
 
   
     const PROXY =async()=>{
-
       try{
       setLoading(true)
       const info = await fetch(`/api/getmovie?type=tv&id=${id}&season=${season}&episode=${episode}&server=1`);
       const m3u8 = await info.json();
-      // const data = await fetch(`https://sub.wyzie.ru/search?id=${id}&format=srt`)
-      // const vttContent =  await data.json();
-      // // setSrt(vttContent)
-      setTitle(m3u8.title)
-  const originalUrl = m3u8?.requestUrl;
-  if (!originalUrl) {
-    console.log("Failed to fetch the original m3u8 URL");
-    setLoading(false);
-    setError(true)
-    return;
-  }
-
-  // Encode and create the proxy URL
-  // const proxyBaseUrl = "http://www.whateverorigin.org/get?url=";
-  // const encodedUrl = encodeURIComponent(originalUrl)
-  // const proxyUrl = `${proxyBaseUrl}${encodedUrl}`;
-  setSrc(originalUrl)
-  setLoading(false)
+       setTitle(m3u8.pageUrl?.title)
+        const originalUrl = m3u8?.pageUrl?.sources;
+        if (!originalUrl) {
+          console.log("Failed to fetch the original m3u8 URL");
+          setLoading(false);
+          setError(true)
+          return;
+        }
+        store.server = originalUrl
+        setLoading(false)
 }
 catch(err)
 {
