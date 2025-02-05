@@ -10,11 +10,9 @@ import { TimeGroup } from '../time-group';
 import { Titles } from '../title';
 import { BufferingIndicator } from './buffer';
 
-export interface VideoLayoutProps {
-  thumbnails?: string;
-}
 
-export function VideoLayout({ thumbnails }: VideoLayoutProps) {
+
+export function VideoLayout() {
   const isPaused = useMediaState('paused')
   return (
     <>
@@ -23,7 +21,7 @@ export function VideoLayout({ thumbnails }: VideoLayoutProps) {
         className={`${captionStyles.captions} media-preview:opacity-0 media-controls:bottom-[85px] media-captions:opacity-100 absolute inset-0 bottom-2 z-10 select-none break-words opacity-0 transition-[opacity,bottom] duration-300`}
       />
       <Controls.Root
-        className={`${styles.controls} media-controls:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity`}
+        className={`${styles.controls}  absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent   transition-opacity`}
       >
         <Controls.Group>
         <Menus.VideoQualitySubmenu />
@@ -34,16 +32,16 @@ export function VideoLayout({ thumbnails }: VideoLayoutProps) {
             <Title className=' whitespace-nowrap text-2xl'/>
           </div>} */}
         <Controls.Group>
-        <PlayButton className="vds-button cursor-pointer">
-          {isPaused &&<PlayIcon className="play-icon  hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white outline-none w-24 md:w-40  " />}
+        <PlayButton className="vds-button cursor-pointer opacity-0 media-can-play:block  media-buffering:opacity-0 hidden media-paused:opacity-100">
+          <PlayIcon className="play-icon  hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white outline-none w-24 md:w-40  " />
         </PlayButton>
         </Controls.Group>
         <BufferingIndicator/>
         </div>
-        <Controls.Group className="flex w-full items-center px-2">
-          <Sliders.Time thumbnails={thumbnails} />
+        <Controls.Group className="w-full media-controls:flex hidden items-center px-2">
+          <Sliders.Time  />
         </Controls.Group>
-        <Controls.Group className="-mt-0.5 flex w-full items-center px-2 pb-2">
+        <Controls.Group className="-mt-0.5  w-full items-center px-2 pb-2 media-controls:flex hidden">
           <Buttons.Play tooltipPlacement="top start" />
           <Buttons.Mute tooltipPlacement="top" />
           <Sliders.Volume />

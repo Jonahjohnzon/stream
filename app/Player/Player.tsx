@@ -5,6 +5,7 @@ import { useSnapshot } from 'valtio';
 import {
     MediaPlayer,
     MediaProvider,
+    Poster,
     Track,
     type MediaPlayerInstance,
   } from '@vidstack/react';
@@ -48,7 +49,7 @@ const Player = ({src,title,Srt}:prop) => {
           )
         })}
       </MediaProvider>
-      <VideoLayout thumbnails="https://files.vidstack.io/sprite-fight/thumbnails.vtt"/>
+      <VideoLayout />
         </MediaPlayer>
     </div>
   )

@@ -2,13 +2,12 @@ import { Spinner } from '@vidstack/react';
 
 export function BufferingIndicator() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-50 flex h-full w-full items-center justify-center">
+    <div className="pointer-events-none absolute  inset-0 z-50 flex h-full w-full items-center justify-center">
       <Spinner.Root
-        className="text-white opacity-0 transition-opacity duration-200 ease-linear media-buffering:animate-spin media-buffering:opacity-100"
+        className="  border-2 w-16 h-16 rounded-full border-white border-t-0  text-white opacity-0 media-waiting:opacity-100 media-waiting:animate-spin media-seeking:animate-spin media-seeking:opacity-100 transition-opacity duration-200 ease-linear media-buffering:animate-spin media-buffering:opacity-100"
         size={84}
       >
-        <Spinner.Track className="opacity-25" width={8} />
-        <Spinner.TrackFill className="opacity-75" width={8} />
+        
       </Spinner.Root>
     </div>
   );

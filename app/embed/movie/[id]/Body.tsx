@@ -30,7 +30,6 @@ catch(err)
 {
   setLoading(false)
   setError(true)
-  console.log(err)
 }
     }
     
@@ -39,7 +38,7 @@ catch(err)
   },[])
   if (loading)
     return <div className=' fixed z-50 w-screen h-screen bg-black flex justify-center items-center'>
-          <div className=' border-2 w-9 h-9 rounded-full border-white border-t-0 animate-spin'></div>
+          <div className=' border-2 w-16 h-16 rounded-full border-white border-t-0 animate-spin'></div>
     </div>
 
   if(error)

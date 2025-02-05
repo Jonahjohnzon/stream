@@ -18,11 +18,9 @@ export function Volume() {
   );
 }
 
-export interface TimeSliderProps {
-  thumbnails?: string;
-}
 
-export function Time({ thumbnails }: TimeSliderProps) {
+
+export function Time() {
   return (
     <TimeSlider.Root className="time-slider group relative mx-[7.5px] inline-flex h-10 w-full cursor-pointer touch-none select-none items-center outline-none">
       <TimeSlider.Chapters className="relative flex h-full w-full items-center rounded-[1px]">

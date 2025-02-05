@@ -35,7 +35,7 @@ export const menuClass =
   'animate-out fade-out slide-out-to-bottom-2 scrollbar-none data-[open]:animate-in data-[open]:fade-in data-[open]:slide-in-from-bottom-4 flex h-[var(--menu-height)] max-h-[400px] min-w-[260px] flex-col overflow-y-auto overscroll-y-contain rounded-md border border-white/10 bg-black/95 p-2.5 font-sans text-[12px] sm:text-[15px] font-medium outline-none backdrop-blur-sm transition-[height] duration-300 will-change-[height] data-[resizing]:overflow-hidden';
 
   export const resClass =
-  'animate-out fade-out slide-out-to-bottom-2 scrollbar-none data-[open]:animate-in data-[open]:fade-in data-[open]:slide-in-from-bottom-4 flex h-[var(--menu-height)] max-h-[400px] min-w-[140px] flex-col overflow-y-auto overscroll-y-contain rounded-md border border-white/10 bg-black/95 p-2.5 font-sans text-[12px] sm:text-[15px] font-medium outline-none backdrop-blur-sm transition-[height] z-30 duration-300 will-change-[height] data-[resizing]:overflow-hidden';
+  'animate-out media-controls:block hidden fade-out slide-out-to-bottom-2 scrollbar-none data-[open]:animate-in data-[open]:fade-in data-[open]:slide-in-from-bottom-4 flex h-[var(--menu-height)] max-h-[400px] min-w-[140px] flex-col overflow-y-auto overscroll-y-contain rounded-md border border-white/10 bg-black/95 p-2.5 font-sans text-[12px] sm:text-[15px] font-medium outline-none backdrop-blur-sm transition-[height] z-30 duration-300 will-change-[height] data-[resizing]:overflow-hidden';
 
 export const submenuClass =
   'hidden w-full flex-col items-start justify-center outline-none data-[keyboard]:mt-[3px] data-[open]:inline-block';
@@ -66,8 +66,8 @@ export function VideoQualitySubmenu() {
         ? `${currentQualityHeight}p`
         : `Auto${currentQualityHeight ? ` (${currentQualityHeight}p)` : ''}`;
   return (
-    <Menu.Root className="parent relative">
-      <Menu.Button disabled={options.disabled} className='absolute top-5 right-10 sm:right-16 z-50'>
+    <Menu.Root className="parent relative ">
+      <Menu.Button disabled={options.disabled} className='media-controls:block hidden absolute top-5 right-10 sm:right-16 z-50'>
         <SettingsMenuIcon className=" h-5 sm:h-8 w-5 sm:w-8 transform transition-transform duration-200 ease-out group-data-[open]:rotate-90"/>
       </Menu.Button>
       <Menu.Content className={resClass} placement={"bottom start"}>
