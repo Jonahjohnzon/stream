@@ -58,7 +58,6 @@ export const GET = async (req) => {
     });
 
   } catch (err) {
-    console.log(err);
     return NextResponse.json(
       { success: false, error: err.message },
       { status: 500 }
