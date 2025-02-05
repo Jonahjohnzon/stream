@@ -1,7 +1,7 @@
 "use client"
 import { useRef } from 'react';
 import '@vidstack/react/player/styles/base.css';
-
+import { useSnapshot } from 'valtio';
 import {
     MediaPlayer,
     MediaProvider,
@@ -9,34 +9,44 @@ import {
     type MediaPlayerInstance,
   } from '@vidstack/react';
 import { VideoLayout } from './components/layouts/video-layout';
+import { store } from '../store';
 
 interface prop {
-    src:string,
+    src?:string,
     title?:any,
     Srt?:any
 }
 
-const Player = ({src, title,Srt}:prop) => {
+const Player = ({title,Srt}:prop) => {
+    const server = useSnapshot(store).server
     let player = useRef<MediaPlayerInstance>(null);
     
   return (
     <div  className=' text-white  w-screen h-screen overflow-hidden flex items-center justify-center   scrollbar-none'>
         <MediaPlayer 
         title={title}
-        key={src}
+        key={server}
         aspectRatio="16/9"
         className=' scrollbar-none  w-screen h-screen bg-black'
-         src={src}
+         src={server}
          load="eager"
          crossOrigin=""
          playsInline
-         storage={src}
+         storage={server}
          ref={player}
        >
         <MediaProvider className='scrollbar-none'>
-        {Srt.map((track:any)=>{
+        {Srt.map((track:any,i:any)=>{
+          console.log(i)
           return(
-           <></>
+           <Track
+           key={i}
+           src={track.url}
+          kind="subtitles"
+          label={track.lang}
+          lang="en-US"
+          default
+           />
           )
         })}
       </MediaProvider>
