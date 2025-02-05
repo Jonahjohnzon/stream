@@ -25,7 +25,6 @@ export class EmbedSu {
             }
             return parseJson ? response.json() : response.text();
         } catch (error) {
-            console.error(`Error during request: ${error}`);
             return "";
         }
     }
@@ -74,7 +73,6 @@ export class EmbedSu {
             return this._emptyResult();
 
         } catch (error) {
-            console.error(`Error: ${error}`);
             return this._emptyResult();
         }
     }
