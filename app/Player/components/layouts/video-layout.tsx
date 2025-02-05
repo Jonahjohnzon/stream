@@ -32,7 +32,7 @@ export function VideoLayout() {
             <Title className=' whitespace-nowrap text-2xl'/>
           </div>} */}
         <Controls.Group>
-        <PlayButton className="vds-button cursor-pointer opacity-0 media-can-play:block  media-buffering:opacity-0 hidden media-paused:opacity-100">
+        <PlayButton className="vds-button cursor-pointer opacity-0 media-can-play:block media-seeking:hidden media-waiting:hidden  media-buffering:opacity-0 hidden media-paused:opacity-100">
           <PlayIcon className="play-icon  hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white outline-none w-24 md:w-40  " />
         </PlayButton>
         </Controls.Group>
