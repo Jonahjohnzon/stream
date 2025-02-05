@@ -5,8 +5,8 @@ export default function Home() {
   const router = useRouter();
 
   // Escaping template literals to display them as text
-  const serieslinkurl = "https://dev.letstream.site/embed/tv/${tmdb_id}/${season_no}/${episode_no}";
-  const movielinkurl = "https://dev.letstream.site/embed/movie/${tmdb_id}";
+  const serieslinkurl = "https://vidstream.site/embed/tv/${tmdb_id}/${season_no}/${episode_no}";
+  const movielinkurl = "https://vidstream.site/embed/movie/${tmdb_id}";
 
   return (
     <div className="text-white h-screen w-screen flex justify-center items-center bg-black px-4">
@@ -16,10 +16,10 @@ export default function Home() {
         <div className="flex items-center font-bold mb-5">
           <img src="/logologo.png" className="w-14 sm:w-16 mr-2" alt="Logo" />
           <p 
-            onClick={() => router.push('https://letstream.site')} 
+            onClick={() => router.push('https://vidstream.site')} 
             className="text-xl sm:text-2xl cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out font-bold text-white"
           >
-            LetStream.site
+            VidStream.site
           </p>
         </div>
 

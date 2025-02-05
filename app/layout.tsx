@@ -5,8 +5,8 @@ import Body from "./Body";
 
 
 export const metadata: Metadata = {
-  title: "Let's Stream",
-  description: "Stream movies and series",
+  title: "VidStream",
+  description: "Embed movies and series",
 };
 
 export default function RootLayout({
