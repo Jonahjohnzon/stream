@@ -15,8 +15,8 @@ const PROXY =async()=>{
       setLoading(true)
       const info = await fetch(`/api/getmovie?type=movie&id=${id}&server=1`);
       const m3u8 = await info.json();
-      setTitle(m3u8.pageUrl?.title)
-  const originalUrl = m3u8?.pageUrl?.sources;
+      setTitle(m3u8.pageUrl?.title || "Movie")
+  const originalUrl = m3u8?.pageUrl?.file;
   if (!originalUrl) {
     console.log("Failed to fetch the original m3u8 URL");
     setLoading(false);

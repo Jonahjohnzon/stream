@@ -1,23 +1,19 @@
 "use server";
 import { NextResponse } from "next/server";
-import { getvidsrc } from "./servers/embed";
 import { unstable_cache } from "next/cache";
+import {EmbedSu} from './servers/embed'
 
 // Cached function that never expires
 const fetchAndCacheVideo = unstable_cache(
   async ({ tmdb_id, type, season, episode, server }) => {
+  
     let pageUrl;
     const cacheKey = type === "movie"
     ? `${type}-${tmdb_id}-${server}`
     : `${type}-${tmdb_id}-${season}-${episode}-${server}`;
-    if (type === "movie") {
-      const vidsrcresponse = await getvidsrc({ tmdb_id, cacheKey });
-      pageUrl = vidsrcresponse;
-    } else {
-      const vidsrcresponse = await getvidsrc({ tmdb_id, season, episode, cacheKey });
-      pageUrl = vidsrcresponse;
-    }
-
+    const embedSu = new EmbedSu();
+    const data = await embedSu.fetchSources(tmdb_id, season, episode)
+    pageUrl = data?.sources[0]
     if (!pageUrl) {
       throw new Error("Movie not found");
     }
@@ -49,6 +45,7 @@ export const GET = async (req) => {
         { status: 400 }
       );
     }
+   
 
     const m3u8Url = await fetchAndCacheVideo({ tmdb_id, type, season, episode, server });
 

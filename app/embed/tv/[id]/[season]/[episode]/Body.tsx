@@ -17,8 +17,8 @@ const Body = ({id,season, episode}:any) => {
       setLoading(true)
       const info = await fetch(`/api/getmovie?type=tv&id=${id}&season=${season}&episode=${episode}&server=1`);
       const m3u8 = await info.json();
-       setTitle(m3u8.pageUrl?.title)
-        const originalUrl = m3u8?.pageUrl?.sources;
+       setTitle(m3u8.pageUrl?.title || "Series")
+       const originalUrl = m3u8?.pageUrl?.file;
         if (!originalUrl) {
           console.log("Failed to fetch the original m3u8 URL");
           setLoading(false);
