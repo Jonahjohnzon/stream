@@ -23,7 +23,7 @@ const PROXY =async()=>{
     setError(true)
     return;
   }
-  store.server = originalUrl
+  setSrc(originalUrl)
   setLoading(false)
 }
 catch(err)
@@ -50,7 +50,7 @@ catch(err)
   }
   return (
     <>
-        <Player  title={title} Srt={Srt}/>
+        <Player src={src}  title={title} Srt={Srt}/>
     </>
   )
 }

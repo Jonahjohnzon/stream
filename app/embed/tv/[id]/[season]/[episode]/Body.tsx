@@ -25,7 +25,7 @@ const Body = ({id,season, episode}:any) => {
           setError(true)
           return;
         }
-        store.server = originalUrl
+        setSrc(originalUrl)
         setLoading(false)
 }
 catch(err)

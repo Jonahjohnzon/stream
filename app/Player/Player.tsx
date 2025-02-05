@@ -17,27 +17,25 @@ interface prop {
     Srt?:any
 }
 
-const Player = ({title,Srt}:prop) => {
-    const server = useSnapshot(store).server
+const Player = ({src,title,Srt}:prop) => {
     let player = useRef<MediaPlayerInstance>(null);
     
   return (
     <div  className=' text-white  w-screen h-screen overflow-hidden flex items-center justify-center   scrollbar-none'>
         <MediaPlayer 
         title={title}
-        key={server}
+        key={src}
         aspectRatio="16/9"
         className=' scrollbar-none  w-screen h-screen bg-black'
-         src={server}
+         src={src}
          load="eager"
          crossOrigin=""
          playsInline
-         storage={server}
+         storage={src}
          ref={player}
        >
         <MediaProvider className='scrollbar-none'>
         {Srt.map((track:any,i:any)=>{
-          console.log(i)
           return(
            <Track
            key={i}
