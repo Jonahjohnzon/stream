@@ -44,11 +44,11 @@ export const GET = async (req) => {
     
     if(type == "movie")
      {
-      const vidsrcresponse = await getvidsrc(tmdb_id);
+      const vidsrcresponse = await getvidsrc({tmdb_id,cacheKey});
       pageUrl = vidsrcresponse      
      }
      else{
-      const vidsrcresponse = await getvidsrc(tmdb_id, season, episode);
+      const vidsrcresponse = await getvidsrc({tmdb_id, season, episode,cacheKey});
       pageUrl = vidsrcresponse 
      }
 
@@ -64,7 +64,8 @@ export const GET = async (req) => {
     // Save result in cache
     cache.set(cacheKey, m3u8Url);
 
-    return NextResponse.json(m3u8Url, { status: 200 });
+    return NextResponse.json(m3u8Url, { status: 200, headers: { "Content-Type": "application/vnd.apple.mpegurl" }
+    });
   } catch (err) {
     console.log(err);
     return NextResponse.json(

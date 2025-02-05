@@ -1,4 +1,7 @@
-export async function getvidsrc(tmdb_id, s, e) {
+"use server"
+import  saveM3U8File from './save'
+import {uploadToR2} from './r2'
+export async function getvidsrc({tmdb_id, season, episode,cacheKey}) {
   const DOMAIN = "https://embed.su";
   const headers = {
     'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -9,8 +12,8 @@ export async function getvidsrc(tmdb_id, s, e) {
   try {
     let urlSearch = '';
 
-    if(s && e){
-      urlSearch = `${DOMAIN}/embed/tv/${tmdb_id}/${s}/${e}`;
+    if(season && episode){
+      urlSearch = `${DOMAIN}/embed/tv/${tmdb_id}/${season}/${episode}`;
     } else {
       urlSearch = `${DOMAIN}/embed/movie/${tmdb_id}`;
     }
@@ -82,52 +85,29 @@ export async function getvidsrc(tmdb_id, s, e) {
         },
         method: "GET",
       });
-
       const parseRequest = await requestDirectSize.text();
-      const directQuality = [];
-      const patternSize = [];
-      const parseDirectSize = parseRequest.split('\n');
-
-      for (let i = 0; i < parseDirectSize.length; i++) {
-      if (parseDirectSize[i].startsWith("#EXT-X-STREAM-INF")) {
-    // Extract resolution from the line
-    const match = parseDirectSize[i].match(/RESOLUTION=\d+x(\d+)/);
-    const quality = match ? match[1] : "unknown";
+      const updatedM3U8 = parseRequest
+      .replace(/\.png/g, '.m3u8') // Replace all .png occurrences with .m3u8
+      .replace(/\/api\/proxy\/viper/g, 'https:/'); // Replace proxy path with https://
+      const fileName = `${cacheKey}.m3u8`
+      const data = await uploadToR2("vidstream", fileName, updatedM3U8);
+      console.log(data)
 
 
-    // Get the next line, which contains the URL
-    const url = parseDirectSize[i + 1]?.trim();
-    if (url) {
-      const modifiedUrl = url
-        .replace("/api/proxy/viper/", "https://")
-        .replace(".png", ".m3u8");
-
-      directQuality.push({ url: modifiedUrl, quality ,isM3U8: true
-      });
-      }
-      }
-      }
-
-
-      if (!directQuality.length) {
-        continue;
-      }
-
-      directQuality.sort((a, b) => b.quality - a.quality);
-      console.log(directQuality)
+      // saveM3U8File(cacheKey,updatedM3U8)
       const results = {
         headers: {
           "Referer": "https://embed.su/",
           "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
           "Accept": "*/*"
         },
-        sources: directQuality,
-        subtitles: tracks
+        sources: data.Location,
       };
 
       return results;
     }
   } catch (e) {
+    console.log(e)
     const results = {
       headers: {},
       sources: '',
