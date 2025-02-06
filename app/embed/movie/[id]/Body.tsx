@@ -22,7 +22,7 @@ const PROXY =async()=>{
       const subtitle = await sub.json()
       const subresult = await getSub(subtitle)
       setSrt(subresult)
-      setTitle(m3u8.pageUrl?.title || "Movie")
+      setTitle(m3u8?.title || "Movie")
   const originalUrl = m3u8?.pageUrl?.file;
   if (!originalUrl) {
     console.log("Failed to fetch the original m3u8 URL");

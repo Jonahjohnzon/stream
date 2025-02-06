@@ -22,7 +22,7 @@ const Body = ({id,season, episode}:any) => {
       const subtitle = await sub.json()
       const subresult = await getSub(subtitle)
       setSrt(subresult)
-       setTitle(m3u8.pageUrl?.title || "Series")
+       setTitle(m3u8?.title || "Series")
        const originalUrl = m3u8?.pageUrl?.file;
        
         if (!originalUrl) {

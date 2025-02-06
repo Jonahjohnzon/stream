@@ -4,33 +4,46 @@ import { unstable_cache } from "next/cache";
 import {EmbedSu} from './servers/embed'
 import {Vidsrc} from './servers/vidsrc'
 
-// Cached function that never expires
 
-const subtitleGet =async()=>{
-  try{
-    const url = 'https://api.opensubtitles.com/api/v1/subtitles';
-    const options = {method: 'GET', headers: {'User-Agent': '', 'Api-Key': process.env.SUB_KEY}}
+const TMDB_API_KEY = process.env.DB_BEARER;
+
+async function fetchTitleFromTMDB(tmdb_id, type) {
+  const url = `https://api.themoviedb.org/3/${type}/${tmdb_id}`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `${TMDB_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`TMDB API error: ${response.statusText}`);
+    }
+
     const data = await response.json();
-  }
-  catch(err){
-
+    return data.title || data.name || "Title"; // 'title' for movies, 'name' for TV shows
+  } catch (error) {
+    console.error("Error fetching title from TMDB:", error);
+    return "Unknown Title";
   }
 }
+
+
 const fetchAndCacheVideo = unstable_cache(
   async ({ tmdb_id, type, season, episode, server }) => {
   
     let pageUrl;
-    const cacheKey = type === "movie"
-    ? `${type}-${tmdb_id}-${server}`
-    : `${type}-${tmdb_id}-${season}-${episode}-${server}`;
     const embedSu = new EmbedSu();
     const data = await embedSu.fetchSources(tmdb_id, season, episode)
     pageUrl = data?.sources[0]
     if (!pageUrl) {
       throw new Error("Movie not found");
     }
+    const title = await fetchTitleFromTMDB(tmdb_id, type);
 
-    return { pageUrl };
+    return { pageUrl, title };
   },
   (params) => `${params.type}-${params.tmdb_id}-${params.season || "0"}-${params.episode || "0"}-${params.server}`
 );
