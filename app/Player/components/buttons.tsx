@@ -9,19 +9,12 @@ import {
   useMediaState,
   type TooltipPlacement,
 } from '@vidstack/react';
-import {
-  ClosedCaptionsIcon,
-  ClosedCaptionsOnIcon,
-  FullscreenExitIcon,
-  FullscreenIcon,
-  MuteIcon,
-  PauseIcon,
-  PictureInPictureExitIcon,
-  PictureInPictureIcon,
-  PlayIcon,
-  VolumeHighIcon,
-  VolumeLowIcon,
-} from '@vidstack/react/icons';
+import { GoScreenFull } from "react-icons/go";
+import { RxExitFullScreen } from "react-icons/rx";
+import { LuPictureInPicture2, LuPictureInPicture, LuCaptions, LuCaptionsOff,LuVolume2,LuVolume, LuVolumeOff } from "react-icons/lu";
+import { FaPlay } from "react-icons/fa6";
+import { FaPause } from "react-icons/fa6";
+
 
 export interface MediaButtonProps {
   tooltipPlacement: TooltipPlacement;
@@ -39,7 +32,7 @@ export function Play({ tooltipPlacement }: MediaButtonProps) {
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
         <PlayButton className={buttonClass}>
-          {isPaused ? <PlayIcon className="w-8 h-8" /> : <PauseIcon className="w-8 h-8" />}
+          {isPaused ? <FaPlay className="w-5 md:w-8 h-5 md:h-8" /> : <FaPause className="w-5 md:w-8 h-5 md:h-8" />}
         </PlayButton>
       </Tooltip.Trigger>
       <Tooltip.Content className={tooltipClass} placement={tooltipPlacement}>
@@ -57,11 +50,11 @@ export function Mute({ tooltipPlacement }: MediaButtonProps) {
       <Tooltip.Trigger asChild>
         <MuteButton className={buttonClass}>
           {isMuted || volume == 0 ? (
-            <MuteIcon className="w-8 h-8" />
+            <LuVolumeOff className="w-5 md:w-8 h-5 md:h-8" />
           ) : volume < 0.5 ? (
-            <VolumeLowIcon className="w-8 h-8" />
+            <LuVolume className="w-5 md:w-8 h-5 md:h-8" />
           ) : (
-            <VolumeHighIcon className="w-8 h-8" />
+            <LuVolume2 className="w-5 md:w-8 h-5 md:h-8" />
           )}
         </MuteButton>
       </Tooltip.Trigger>
@@ -80,9 +73,9 @@ export function Caption({ tooltipPlacement }: MediaButtonProps) {
       <Tooltip.Trigger asChild>
         <CaptionButton className={buttonClass}>
           {isOn ? (
-            <ClosedCaptionsOnIcon className="w-8 h-8" />
+            <LuCaptions className="w-5 md:w-8 h-5 md:h-8" />
           ) : (
-            <ClosedCaptionsIcon className="w-8 h-8" />
+            <LuCaptionsOff className="w-5 md:w-8 h-5 md:h-8" />
           )}
         </CaptionButton>
       </Tooltip.Trigger>
@@ -100,9 +93,9 @@ export function PIP({ tooltipPlacement }: MediaButtonProps) {
       <Tooltip.Trigger asChild>
         <PIPButton className={buttonClass}>
           {isActive ? (
-            <PictureInPictureExitIcon className="w-8 h-8" />
+            <LuPictureInPicture className="w-5 md:w-8 h-5 md:h-8" />
           ) : (
-            <PictureInPictureIcon className="w-8 h-8" />
+            <LuPictureInPicture2 className="w-5 md:w-8 h-5 md:h-8" />
           )}
         </PIPButton>
       </Tooltip.Trigger>
@@ -120,9 +113,9 @@ export function Fullscreen({ tooltipPlacement }: MediaButtonProps) {
       <Tooltip.Trigger asChild>
         <FullscreenButton className={buttonClass}>
           {isActive ? (
-            <FullscreenExitIcon className="w-8 h-8" />
+            <RxExitFullScreen className="w-5 md:w-8 h-5 md:h-8" />
           ) : (
-            <FullscreenIcon className="w-8 h-8" />
+            <GoScreenFull className="w-5 md:w-8 h-5 md:h-8" />
           )}
         </FullscreenButton>
       </Tooltip.Trigger>

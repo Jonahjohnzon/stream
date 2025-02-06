@@ -9,7 +9,7 @@ import * as Sliders from '../sliders';
 import { TimeGroup } from '../time-group';
 import { Titles } from '../title';
 import { BufferingIndicator } from './buffer';
-
+import { FaPlay } from "react-icons/fa";
 
 
 export function VideoLayout() {
@@ -30,7 +30,7 @@ export function VideoLayout() {
             <Title className=' whitespace-nowrap text-2xl'/>
           </div>} */}
         <PlayButton className="vds-button    absolute  inset-0 z-50  cursor-pointer opacity-0 media-can-play:flex justify-center items-center media-seeking:hidden media-waiting:hidden  media-buffering:opacity-0 hidden media-paused:opacity-100">
-          <PlayIcon className="play-icon  hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white outline-none w-16 md:w-40  " />
+          <FaPlay className="  transition-all duration-300 ease-in-out vds-icon text-white outline-none scale-[300%] md:scale-[600%]  " />
         </PlayButton>
         <BufferingIndicator/>
         <Captions
@@ -42,15 +42,26 @@ export function VideoLayout() {
           <Sliders.Time  />
         </Controls.Group>
         <Controls.Group className="-mt-0.5 z-40  w-full items-center px-2 pb-2 media-controls:flex hidden">
+          <div className='sm:flex w-full items-center hidden'>
+            <div className='mr-2'>
           <Buttons.Play tooltipPlacement="top start" />
+          </div>
           <Buttons.Mute tooltipPlacement="top" />
           <Sliders.Volume />
           <TimeGroup />
           <Titles />
-          <div className="flex-1" />
-          <Buttons.Caption tooltipPlacement="top" />
+          </div>
+          <div className="sm:flex-1" />
+          <div>
           <Menus.Settings placement="top end" tooltipPlacement="top" />
+          </div>
+          <div className="flex-1 sm:flex" />
+          <div className='ml-4'>
+          <Menus.Server placement="top end" tooltipPlacement="top"/>
+          </div>
+          <div className=' sm:mx-4'>
           <Buttons.PIP tooltipPlacement="top" />
+          </div>
           <Buttons.Fullscreen tooltipPlacement="top end" />
         </Controls.Group>
       </Controls.Root>

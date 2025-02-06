@@ -36,7 +36,11 @@ const fetchAndCacheVideo = unstable_cache(
   
     let pageUrl;
     const embedSu = new EmbedSu();
-    const data = await embedSu.fetchSources(tmdb_id, season, episode)
+    let data ;
+    if(server == "1")
+    {
+    data = await embedSu.fetchSources(tmdb_id, season, episode)
+    }
     pageUrl = data?.sources[0]
     if (!pageUrl) {
       throw new Error("Movie not found");

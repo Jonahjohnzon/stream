@@ -6,7 +6,7 @@ import { store } from '@/app/store'
 import { getSub } from '../../subtitle'
 const Body = ({id}:any) => {
   const [src, setSrc] = useState("")
-  const server = useSnapshot(store).server
+  const server = useSnapshot(store).server.server
   const [loading, setLoading] = useState(true)
   const [title, setTitle] = useState("")
   const [error, setError] = useState(false)
@@ -16,7 +16,7 @@ const Body = ({id}:any) => {
 const PROXY =async()=>{
       try{
       setLoading(true)
-      const info = await fetch(`/api/getmovie?type=movie&id=${id}&server=1`);
+      const info = await fetch(`/api/getmovie?type=movie&id=${id}&server=${server}`);
       const sub = await fetch(`https://sub.wyzie.ru/search?id=${id}&&language=en&format=srt`)
       const m3u8 = await info.json();
       const subtitle = await sub.json()
@@ -42,7 +42,7 @@ catch(err)
     
   useEffect(()=>{
     PROXY()
-  },[])
+  },[server])
   if (loading)
     return <div className=' fixed z-50 w-screen h-screen bg-black flex justify-center items-center'>
           <div className=' border-2 w-16 h-16 rounded-full border-white border-t-0 animate-spin'></div>
