@@ -29,7 +29,7 @@ export function VideoLayout() {
             <p className=' text-lg'>You're watching</p>
             <Title className=' whitespace-nowrap text-2xl'/>
           </div>} */}
-        <PlayButton className="vds-button   absolute  inset-0 z-50  cursor-pointer opacity-0 media-can-play:flex justify-center items-center media-seeking:hidden media-waiting:hidden  media-buffering:opacity-0 hidden media-paused:opacity-100">
+        <PlayButton className="vds-button    absolute  inset-0 z-50  cursor-pointer opacity-0 media-can-play:flex justify-center items-center media-seeking:hidden media-waiting:hidden  media-buffering:opacity-0 hidden media-paused:opacity-100">
           <PlayIcon className="play-icon  hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white outline-none w-16 md:w-40  " />
         </PlayButton>
         <BufferingIndicator/>
