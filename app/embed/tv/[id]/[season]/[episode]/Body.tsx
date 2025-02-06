@@ -2,6 +2,7 @@
 import Player from '@/app/Player/Player'
 import React, { useEffect, useState } from 'react'
 import { useSnapshot } from 'valtio'
+import { getSub } from '@/app/embed/subtitle'
 import { store } from '@/app/store'
 
 const Body = ({id,season, episode}:any) => {
@@ -9,16 +10,21 @@ const Body = ({id,season, episode}:any) => {
   const [loading, setLoading] = useState(true)
   const [title, setTitle] = useState('')
   const [error, setError] = useState(false)
-  const [Srt, setSrt] = useState([])
+  const [Srt, setSrt] = useState({})
 
   
     const PROXY =async()=>{
       try{
       setLoading(true)
       const info = await fetch(`/api/getmovie?type=tv&id=${id}&season=${season}&episode=${episode}&server=1`);
+      const sub = await fetch(`https://sub.wyzie.ru/search?id=${id}&season=${season}&episode=${episode}&&language=en&format=srt`)
       const m3u8 = await info.json();
+      const subtitle = await sub.json()
+      const subresult = await getSub(subtitle)
+      setSrt(subresult)
        setTitle(m3u8.pageUrl?.title || "Series")
        const originalUrl = m3u8?.pageUrl?.file;
+       
         if (!originalUrl) {
           console.log("Failed to fetch the original m3u8 URL");
           setLoading(false);

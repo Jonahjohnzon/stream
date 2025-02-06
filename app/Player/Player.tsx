@@ -20,7 +20,6 @@ interface prop {
 
 const Player = ({src,title,Srt}:prop) => {
     let player = useRef<MediaPlayerInstance>(null);
-    
   return (
     <div  className=' text-white  w-screen h-screen overflow-hidden flex items-center justify-center   scrollbar-none'>
         <MediaPlayer 
@@ -36,18 +35,15 @@ const Player = ({src,title,Srt}:prop) => {
          ref={player}
        >
         <MediaProvider className='scrollbar-none'>
-        {Srt.map((track:any,i:any)=>{
-          return(
-           <Track
-           key={i}
-           src={track.url}
+           {Object.keys(Srt).length > 0&&<Track
+           src={`${Srt.subUrl}`}
           kind="subtitles"
-          label={track.lang}
-          lang="en-US"
+          label={Srt.display}
+          lang={Srt.language}
+          type="srt"
           default
-           />
-          )
-        })}
+           />}
+     
       </MediaProvider>
       <VideoLayout />
         </MediaPlayer>

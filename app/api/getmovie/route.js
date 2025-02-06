@@ -2,8 +2,20 @@
 import { NextResponse } from "next/server";
 import { unstable_cache } from "next/cache";
 import {EmbedSu} from './servers/embed'
+import {Vidsrc} from './servers/vidsrc'
 
 // Cached function that never expires
+
+const subtitleGet =async()=>{
+  try{
+    const url = 'https://api.opensubtitles.com/api/v1/subtitles';
+    const options = {method: 'GET', headers: {'User-Agent': '', 'Api-Key': process.env.SUB_KEY}}
+    const data = await response.json();
+  }
+  catch(err){
+
+  }
+}
 const fetchAndCacheVideo = unstable_cache(
   async ({ tmdb_id, type, season, episode, server }) => {
   
@@ -45,6 +57,8 @@ export const GET = async (req) => {
         { status: 400 }
       );
     }
+    const vidsrc = new Vidsrc();
+    await vidsrc.fetchSources(tmdb_id, season, episode)
    
 
     const m3u8Url = await fetchAndCacheVideo({ tmdb_id, type, season, episode, server });

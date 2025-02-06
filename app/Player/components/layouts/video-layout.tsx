@@ -18,7 +18,7 @@ export function VideoLayout() {
     <>
       <Gestures />
       <Captions
-        className={`${captionStyles.captions} media-preview:opacity-0 media-controls:bottom-[85px] media-captions:opacity-100 absolute inset-0 bottom-2 z-10 select-none break-words opacity-0 transition-[opacity,bottom] duration-300`}
+        className={`${captionStyles.captions}  scale-50 sm:scale-75 md:scale-100  media-preview:opacity-0 media-controls:bottom-[85px] media-captions:opacity-100 absolute inset-0 bot bottom-0 md:bottom-2 z-10 select-none break-words opacity-0 transition-[opacity,bottom] duration-300`}
       />
       <Controls.Root
         className={`${styles.controls}  absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent   transition-opacity`}
