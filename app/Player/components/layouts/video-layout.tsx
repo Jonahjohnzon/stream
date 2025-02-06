@@ -41,7 +41,7 @@ export function VideoLayout() {
         <Controls.Group className="w-full media-controls:flex hidden items-center px-2">
           <Sliders.Time  />
         </Controls.Group>
-        <Controls.Group className="-mt-0.5  w-full items-center px-2 pb-2 media-controls:flex hidden">
+        <Controls.Group className="-mt-0.5 z-40  w-full items-center px-2 pb-2 media-controls:flex hidden">
           <Buttons.Play tooltipPlacement="top start" />
           <Buttons.Mute tooltipPlacement="top" />
           <Sliders.Volume />
