@@ -68,7 +68,7 @@ export function VideoQualitySubmenu() {
   return (
     <Menu.Root className="parent relative ">
       <Menu.Button disabled={options.disabled} className='media-controls:block hidden absolute top-5 right-10 sm:right-16 z-50'>
-        <SettingsMenuIcon className=" h-5 sm:h-8 w-5 sm:w-8 transform transition-transform duration-200 ease-out group-data-[open]:rotate-90"/>
+        <SettingsMenuIcon className=" h-7 sm:h-8 w-7 sm:w-8 transform transition-transform duration-200 ease-out group-data-[open]:rotate-90"/>
       </Menu.Button>
       <Menu.Content className={resClass} placement={"bottom start"}>
         <Menu.RadioGroup value={options.selectedValue}>

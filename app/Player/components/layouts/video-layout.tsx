@@ -29,14 +29,12 @@ export function VideoLayout() {
             <p className=' text-lg'>You're watching</p>
             <Title className=' whitespace-nowrap text-2xl'/>
           </div>} */}
-        <Controls.Group>
-        <PlayButton className="vds-button cursor-pointer opacity-0 media-can-play:block media-seeking:hidden media-waiting:hidden  media-buffering:opacity-0 hidden media-paused:opacity-100">
-          <PlayIcon className="play-icon  hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white outline-none w-24 md:w-40  " />
+        <PlayButton className="vds-button   absolute  inset-0 z-50  cursor-pointer opacity-0 media-can-play:flex justify-center items-center media-seeking:hidden media-waiting:hidden  media-buffering:opacity-0 hidden media-paused:opacity-100">
+          <PlayIcon className="play-icon  hover:scale-110 transition-all duration-300 ease-in-out vds-icon text-white outline-none w-16 md:w-40  " />
         </PlayButton>
-        </Controls.Group>
         <BufferingIndicator/>
         <Captions
-        className={` sm:text-xl md:text-2xl font-medium px-2 bg-black max-w-[80%] sm:max-w-96 text-center  bg-opacity-65 bottom-[40px] leading-10 tracking-wider   media-preview:opacity-0 media-controls:bottom-[85px] media-captions:opacity-100 absolute   z-10 select-none break-words opacity-0 transition-[opacity,bottom] duration-300`}
+        className={` sm:text-xl md:text-2xl font-medium px-2 bg-black max-w-[80%] sm:max-w-96 text-center  bg-opacity-65 bottom-[40px] leading-5 sm:leading-10 tracking-wider   media-preview:opacity-0 media-controls:bottom-[85px] media-captions:opacity-100 absolute   z-10 select-none break-words opacity-0 transition-[opacity,bottom] duration-300`}
       />
         </div>
 

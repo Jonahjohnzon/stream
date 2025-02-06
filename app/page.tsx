@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <div className="text-white h-screen w-screen flex justify-center items-center bg-black px-4">
       <div className="flex flex-col items-center text-center w-full max-w-md">
-        
         {/* Logo & Site Title */}
         <div className="flex items-center font-bold mb-5">
           <img src="/logologo.png" className="w-14 sm:w-16 mr-2" alt="Logo" />

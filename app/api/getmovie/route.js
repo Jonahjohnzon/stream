@@ -70,8 +70,8 @@ export const GET = async (req) => {
         { status: 400 }
       );
     }
-    const vidsrc = new Vidsrc();
-    await vidsrc.fetchSources(tmdb_id, season, episode)
+    // const vidsrc = new Vidsrc();
+    // // await vidsrc.fetchSources("vidsrc",tmdb_id, season, episode)
    
 
     const m3u8Url = await fetchAndCacheVideo({ tmdb_id, type, season, episode, server });
